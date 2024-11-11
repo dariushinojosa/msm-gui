@@ -36,4 +36,22 @@ class DirectorsController < ApplicationController
 
     render({ :template => "director_templates/eldest" })
   end
+
+  def insert
+    d = Director.new
+    d.name = params.fetch("the_name")
+    d.dob = params.fetch("the_dob")
+    d.bio = params.fetch("the_bio")
+    d.image = params.fetch("the_image")
+    d.save
+    redirect_to("/actor")
+  end
+
+  def destroy
+    the_id = params.fetch("the_id")
+    matching = Director.where({ :id => the_id}).first
+    matching.destroy
+    redirect_to("/directors")
+  end
+
 end
